@@ -19,6 +19,7 @@ class CreateTaskPresenter {
       view.showError("Fill all fields");
       return false;
     }
+    task.currentCount = task.maxCount;
     DBHelper().saveTask(task);
     return true;
   }

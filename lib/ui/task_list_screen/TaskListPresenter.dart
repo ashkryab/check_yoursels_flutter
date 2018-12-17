@@ -15,17 +15,18 @@ class TaskListPresenter {
 
   void loadTasks() {
     DBHelper().getTasks().then((result) {
-
+      result.forEach(checkDate);
       _view.showTasks(result);
     });
   }
 
-  void checkDate(Task task){
+  void checkDate(Task task) {
 //    var oldDate = DateTime.fromMillisecondsSinceEpoch(num.parse(task.lastUpdate));
-    int oldDay =  (num.parse(task.lastUpdate) / (1000*60*60*24)) as int;
-    int current =  (DateTime.now().millisecondsSinceEpoch/ (1000*60*60*24)) as int;
-    var dif = current-oldDay;
-    if(dif>0){
+    int oldDay = num.parse(task.lastUpdate) ~/ (1000 * 60 * 60 * 24);
+    int current =
+        DateTime.now().millisecondsSinceEpoch ~/ (1000 * 60 * 60 * 24);
+    var dif = current - oldDay;
+    if (dif > 0) {
       task.lastUpdate = "$current";
       task.currentCount = task.maxCount;
       DBHelper().updateTask(task);

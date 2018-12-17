@@ -38,6 +38,7 @@ class _CreateTaskPageState extends State<CreateTaskPage>
           Padding(
             padding: const EdgeInsets.only(top: 32, right: 16, left: 16),
             child: TextField(
+              autofocus: true,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(hintText: "Title"),
               onChanged: (str) {
@@ -49,7 +50,6 @@ class _CreateTaskPageState extends State<CreateTaskPage>
             padding: const EdgeInsets.all(16.0),
             child: TextField(
               textInputAction: TextInputAction.go,
-              autofocus: true,
               decoration: InputDecoration(hintText: "Description"),
               onChanged: (str) {
                 _presenter.task.description = str;
