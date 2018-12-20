@@ -18,7 +18,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     
-  sqflite: any
+  sqflite: '^0.13.0'
+  collection: 'any'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
