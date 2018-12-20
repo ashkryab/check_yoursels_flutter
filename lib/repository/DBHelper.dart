@@ -69,9 +69,14 @@ class DBHelper {
   }
 
   void updateTask(Task task) async {
-    Map<String, int> arg = Map();
     var dbClient = await db;
-     await dbClient.rawUpdate(
-        'UPDATE Tasks SET current_count = \'${task.currentCount}\' , last_update = \'${task.lastUpdate}\' ,  WHERE id = ${task.id}');
+      await dbClient.rawUpdate(
+          'UPDATE Tasks SET current_count = \'${task.currentCount}\', last_update = \'${task.lastUpdate}\' WHERE id = \'${task.id}\';');
+  }
+
+  void deleteTask(Task task) async {
+    var dbClient = await db;
+      await dbClient.rawDelete(
+          'DELETE FROM Tasks WHERE id = "${task.id}";');
   }
 }

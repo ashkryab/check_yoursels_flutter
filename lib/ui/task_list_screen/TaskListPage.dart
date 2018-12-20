@@ -25,33 +25,30 @@ class _TaskListPageState extends State<TaskListPage> implements TaskListView {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     print("XXX_build");
     return createBody();
   }
 
- Widget createBody(){
-   return Scaffold(
-     appBar: AppBar(
-       title: Text(widget.title),
-     ),
-     body: Center(
-         child: buildList()
-     ),
-     floatingActionButton: FloatingActionButton(
-       onPressed:  () async{
-         await Navigator.push(
-           context,
-           MaterialPageRoute(builder: (context) => CreateTaskPage()),
-         );
-         _presenter.loadTasks();
-       },
-       child: Icon(Icons.add),
-     ),
-   );
- }
+  Widget createBody() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(child: buildList()),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateTaskPage()),
+          );
+          _presenter.loadTasks();
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
 
   @override
   void showTasks(List<Task> result) {
@@ -60,13 +57,19 @@ class _TaskListPageState extends State<TaskListPage> implements TaskListView {
     });
   }
 
-  Widget buildList(){
-    if(_presenter.items.length>0){
-     return  ListView.builder(
+  Widget buildList() {
+    if (_presenter.items.length > 0) {
+      return ListView.builder(
         itemBuilder: (BuildContext context, int index) =>
-            TaskItemWidget(_presenter.items[index]),
-        itemCount:_presenter.items.length,);
-    }else{
+            TaskItemWidget(_presenter.items[index],(){
+              setState(() {
+                _presenter.deleteItem(_presenter.items[index]);
+                _presenter.items.removeAt(index);
+              });
+            }),
+        itemCount: _presenter.items.length,
+      );
+    } else {
       return Center(child: Text("Жмякни на плюсик и добавь напоминалку"));
     }
   }

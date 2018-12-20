@@ -32,4 +32,8 @@ class TaskListPresenter {
       DBHelper().updateTask(task);
     }
   }
+
+  void deleteItem(task) {
+    DBHelper().deleteTask(task);
+  }
 }
